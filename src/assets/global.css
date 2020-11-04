@@ -1,0 +1,24 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body, html, #root {
+  min-width: 100vw;
+  overflow-x: hidden;
+  height: 100vh;
+  font-family: 'Epilogue', sans-serif;
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-height: 700px){
+  :root{
+      font-size: 62.5%;
+  }
+}
