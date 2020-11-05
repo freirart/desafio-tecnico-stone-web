@@ -11,9 +11,11 @@ header, footer {
   background: var(--color-black);
   color: var(--color-white);
   font-family: 'Lato', sans-serif;
+  letter-spacing: 2px;
+  font-size: .8rem;
 }
 
-a {
+header a, footer a {
   font-style: normal;
   text-decoration: none;
   font-weight: 700;
@@ -51,15 +53,13 @@ header .current-user img {
 footer {
   justify-content: center;
   line-height: 2rem;
-  position: absolute;
-  bottom: 0;
   border-top: 1px solid var(--color-primary);
 }
 
 main {
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   padding: 2rem 10%;
+  height: 100%;
 }

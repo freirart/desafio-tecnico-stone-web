@@ -1,0 +1,31 @@
+.input-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--color-black-light);
+}
+
+.input-group label {
+  font-size: .85rem;
+  margin-left: .25rem;
+  color: inherit;
+}
+
+.input-group select, .input-group input {
+  margin-top: .5rem;
+  padding: .5rem;
+  font-size: 1.05rem;
+  outline: none;
+  border: 1px solid var(--color-gray);
+  border-radius: 3px;
+  color: inherit;
+}
+
+.input-group select:hover, .input-group select:active, .input-group input:hover {
+  background: var(--color-white);
+  transition: .2s;
+}
+
+.input-group select:hover option {
+  background: white;
+}

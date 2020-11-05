@@ -10,11 +10,11 @@ function Table({ objRef }) {
   if (keys.length > 2) keys.shift();
 
   return (
-    <table>
+    <table id="main-table">
       <thead>
         <tr>
         {
-          keys.map(key => <td>{key}</td>)
+          keys.map(key => <td key={key}>{key}</td>)
         }
         </tr>
       </thead>
@@ -27,10 +27,10 @@ function Table({ objRef }) {
                 <td className="content-cell" style={{ textAlign: 'center' }}>{ idade }</td>
                 <td className="content-cell">{ cargo.nome }</td>
                 <td className="edit-btn">
-                  <a href="https"><i class="fas fa-edit"></i> Editar</a>
+                  <a href="https"><i className="fas fa-edit"></i> Editar</a>
                 </td>
                 <td className="delete-btn">
-                  <a href="https"><i class="fas fa-trash-alt"></i> Excluir</a>
+                  <a href="https"><i className="fas fa-trash-alt"></i> Excluir</a>
                 </td>
               </tr>
             );
