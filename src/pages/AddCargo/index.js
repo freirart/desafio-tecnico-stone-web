@@ -1,8 +1,16 @@
 import React from 'react';
 
+import PageContainer from '../../components/PageContainer';
+import Form from '../../components/Form';
+
 function AddCargo() {
+
+  const objRef = { id: '', nome: '' };
+
   return (
-    <h1>Add Cargo Page</h1>
+    <PageContainer>
+      <Form objRef={objRef} objName="cargo" />
+    </PageContainer>
   );
 }
 

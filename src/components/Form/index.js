@@ -7,71 +7,36 @@ import api from '../../services/api';
 
 import './styles.css';
 
-function Form({ type, objRef, objName }) {
+function Form({ objRef, objName }) {
 
   const [ cargosList, setCargosList ] = useState([]);
-  let keys = ['nome'];
-  
   const history = useHistory();
 
-  if (objName === 'employee') {
+  let keys = ['nome'];
+
+  if (objName === 'funcionário') {
     keys.push('idade');
     keys.push('cargo')
   }
 
   useEffect(() => {
-    api.get('/cargos')
-      .then(({ data }) => setCargosList(data.cargos))
-      .catch(err => console.log(err));
+    if (keys.includes('cargos')) {
+      api.get('/cargos')
+        .then(({ data }) => setCargosList(data.cargos))
+        .catch(err => console.log(err));
+    }
   }, [])
 
   const [ nome, setNome ] = useState(objRef?.nome || '');
   const [ idade, setIdade ] = useState(objRef?.idade || 0);
   const [ cargoId, setCargoId ] = useState(objRef?.cargo?.id || '');
 
-  let fakeCargos = [
-    {
-      "id": 6,
-      "nome": "Desenvolvedor Fullstack"
-    },
-    {
-      "id": 8,
-      "nome": "Chapter Lead"
-    },
-    {
-      "id": 9,
-      "nome": "Desenvolvedor Python"
-    },
-    {
-      "id": 11,
-      "nome": "Desenvolvedor C/C++"
-    },
-    {
-      "id": 12,
-      "nome": "Faxineira"
-    },
-    {
-      "id": 13,
-      "nome": "Segurança"
-    },
-    {
-      "id": 14,
-      "nome": "Estagiário Front-End React"
-    },
-    {
-      "id": 15,
-      "nome": "Estagiário Back-End NodeJS"
-    }
-  ];
-
   function handleAddEmployee(e) {
     e.preventDefault();
-
     const url = idade > 0 ? '/employee' : '/cargos'
-
     api.post(url, {nome, idade, cargoId})
       .then(() => {
-        alert('Success adding employee!');
+        alert(`Success adding ${objName}!`);
         history.push('/');
       })
       .catch(err => alert('Erro ao cadastrar!'));
@@ -88,7 +53,7 @@ function Form({ type, objRef, objName }) {
                 name="nome"
                 valueSt={nome}
                 onChangeSt={e => setNome(e.target.value)}
-                placeholder="Nome do funcionário"
+                placeholder={`Nome do ${objName}`}
               />
             )}
             {key === 'idade' && (
@@ -116,7 +81,7 @@ function Form({ type, objRef, objName }) {
         );
       })}
       <button type="submit">
-        <i className="fas fa-plus-circle"></i> Cadastrar Funcionário
+        <i className="fas fa-plus-circle"></i> Cadastrar {objName}
       </button>
     </form>
   );
