@@ -8,26 +8,31 @@ header, footer {
   width: 100%;
   display: flex;
   align-items: center;
-  background: #1f1f1f;
-  color: #fff;
+  background: var(--color-black);
+  color: var(--color-white);
   font-family: 'Lato', sans-serif;
 }
 
-em, a.em {
+a {
   font-style: normal;
   text-decoration: none;
   font-weight: 700;
-  color: #AFFC41;
+  color: var(--color-secondary);
   letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: .5rem;
 }
 
 header {
   justify-content: space-between;
-  padding: .5rem 4rem;
+  padding: 0 4rem;
+  border-bottom: 1px solid var(--color-primary);
 }
 
 .logo {
-  max-height: 3rem;
+  max-height: 2rem;
 }
 
 header .current-user {
@@ -37,19 +42,18 @@ header .current-user {
 }
 
 header .current-user img {
-  max-width: 40px;
-  margin-left: 1rem;
-  border: 1px solid #ddd;
+  max-width: 32px;
+  border: 1px solid var(--color-gray);
   border-radius: 50%;
+  margin-left: .5rem;
 }
 
 footer {
-  flex-direction: column;
   justify-content: center;
-  padding: 1rem 0;
-  line-height: 3rem;
+  line-height: 2rem;
   position: absolute;
   bottom: 0;
+  border-top: 1px solid var(--color-primary);
 }
 
 main {

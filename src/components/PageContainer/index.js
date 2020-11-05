@@ -9,20 +9,20 @@ function PageContainer({ children }) {
   return (
     <div id="content">
       <header>
-        <img src={logo} className="logo" alt="Logo" />
+        <a href="https://www.linkedin.com/in/freirart"> 
+          <img src={logo} className="logo" alt="Logo" />
+        </a>
         <div className="current-user">
-          <span><em>(Admin)</em> Artur</span>
+          <span>Admin</span>
           <img src={currentUser} alt="Current User" />
         </div>
       </header>
       <main className="container">{children}</main>
       <footer>
-        <img src={logo} className="logo" alt="Logo" />
-        <span>Desenvolvido por&nbsp;
-          <a href="https://www.linkedin.com/in/freirart" className="em"> 
-           Artur Freire
-          </a>.
-        </span>
+        <span>Desenvolvido por&nbsp;</span>
+        <a href="https://www.linkedin.com/in/freirart"> 
+          <img src={logo} className="logo" alt="Logo" />
+        </a>
       </footer>
     </div>
   );

@@ -1,3 +1,17 @@
+:root {
+  --color-white: #F3F2FA;
+  --color-primary: #4831D4;
+  --color-secondary: #CCF381;
+  --color-warning: #ffe66d;
+  --color-warning-hover: #f7dc59;
+  --color-error: #ff6b6b;
+  --color-error-hover: #f76060;
+  --color-black: #2B2B2B;
+  --color-black-light: #303030;
+  --color-gray: #dcdcdc;
+  --color-light-blue: #edfcff;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -15,10 +29,4 @@ body, html, #root {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-@media (min-height: 700px){
-  :root{
-      font-size: 62.5%;
-  }
 }
