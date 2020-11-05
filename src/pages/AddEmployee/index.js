@@ -1,8 +1,16 @@
 import React from 'react';
 
+import PageContainer from '../../components/PageContainer';
+import Form from '../../components/Form';
+
 function AddEmployee() {
+
+  const objRef = { nome: '', idade: 0, cargo: { id: '', nome: '' } };
+
   return (
-    <h1>Add Employee Page</h1>
+    <PageContainer>
+      <Form objRef={objRef} objName="employee" />
+    </PageContainer>
   );
 }
 

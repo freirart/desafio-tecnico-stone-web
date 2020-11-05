@@ -1,0 +1,40 @@
+#form-component {
+  padding: 2rem;
+  box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.15);
+  border: 1px solid var(--color-gray);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.25rem;
+  min-width: 400px;
+}
+
+#form-component button {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: .2s;
+  padding: .75rem 1rem;
+  border-radius: 3px;
+  color: var(--color-black-light);
+  background: var(--color-secondary);
+  outline: none;
+  border: 0;
+  border-radius: 8px;
+  margin: 1rem 0 0 0;
+  font-size: 1.05rem;
+}
+
+#form-component button i {
+  margin-right: .5rem;
+}
+
+#form-component button:hover {
+  opacity: .8;
+  cursor: pointer;
+}
+
+#input-group {
+  min-width: 100%;
+  margin: .75rem 0;
+}

@@ -23,10 +23,15 @@ body, html, #root {
   overflow-x: hidden;
   height: 100vh;
   font-family: 'Epilogue', sans-serif;
+  position: relative !important;
 }
 
 #root {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.container {
+  min-height: 100vh;
 }

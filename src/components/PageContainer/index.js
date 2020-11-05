@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import logo from '../../assets/images/logo.png';
 import currentUser from '../../assets/images/perfil.jpg';
@@ -9,9 +10,9 @@ function PageContainer({ children }) {
   return (
     <div id="content">
       <header>
-        <a href="https://www.linkedin.com/in/freirart"> 
+        <Link to="/"> 
           <img src={logo} className="logo" alt="Logo" />
-        </a>
+        </Link>
         <div className="current-user">
           <span>Admin</span>
           <img src={currentUser} alt="Current User" />

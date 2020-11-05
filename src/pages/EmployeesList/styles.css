@@ -11,6 +11,10 @@
   margin: .5rem 0;
 }
 
+.actions .post-actions {
+  display: flex;
+}
+
 .actions a {
   display: flex;
   align-items: center;
@@ -18,6 +22,7 @@
   transition: .2s;
   padding: .5rem 0;
   border-radius: 3px;
+  margin-right: 2rem;
 }
 
 .actions a i {
@@ -67,7 +72,7 @@
   position: relative;
 }
 
-form, #table-filtros tbody {
+#employee-list-form, #table-filtros tbody {
   min-width: 100%;
   position: relative;
 }
@@ -85,7 +90,7 @@ form, #table-filtros tbody {
   width: 100%;
   height: 100%;
   display: block;
-  min-width: 200px !important;
+  min-width: 185px !important;
   padding: .60rem .75rem;
   color: var(--color-white);
   background: var(--color-primary);
@@ -105,5 +110,19 @@ form, #table-filtros tbody {
 #table-filtros tbody tr td button[type="submit"]:hover {
   opacity: .8;
   transition: .2s;
+  cursor: pointer;
+}
+
+.show-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.show-more span {
+  text-decoration: underline;
+  color: var(--color-primary);
   cursor: pointer;
 }

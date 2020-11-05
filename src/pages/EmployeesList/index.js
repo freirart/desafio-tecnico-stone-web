@@ -11,146 +11,28 @@ import './styles.css';
 
 function EmployeesList() {
 
-  // const [ employeesList, setEmployeesList ] = useState([]);
-  // const [ cargosList, setCargosList ] = useState([]);
+  const [ employeesList, setEmployeesList ] = useState([]);
+  const [ cargosList, setCargosList ] = useState([]);
   const keys = ['cargo', 'nome', 'idade'];
-  // const [ pageNumber, setPageNumber ] = useState(0);
+  const [ pageNumber, setPageNumber ] = useState(0);
 
-  const fakeEmployees = [
-    {
-      "id": 1,
-      "nome": "Artur Freire",
-      "idade": 19,
-      "cargo": {
-        "id": 6,
-        "nome": "Desenvolvedor Fullstack"
-      }
-    },
-    {
-      "id": 2,
-      "nome": "Bruno Rogério",
-      "idade": 18,
-      "cargo": {
-        "id": 8,
-        "nome": "Chapter Lead"
-      }
-    },
-    {
-      "id": 4,
-      "nome": "Ciro Trindade",
-      "idade": 45,
-      "cargo": {
-        "id": 9,
-        "nome": "Desenvolvedor Python"
-      }
-    },
-    {
-      "id": 5,
-      "nome": "Thiago Ferauche",
-      "idade": 50,
-      "cargo": {
-        "id": 9,
-        "nome": "Desenvolvedor Python"
-      }
-    },
-    {
-      "id": 3,
-      "nome": "Lucas Anjos",
-      "idade": 31,
-      "cargo": {
-        "id": 9,
-        "nome": "Desenvolvedor Python"
-      }
-    },
-    {
-      "id": 7,
-      "nome": "André Freire",
-      "idade": 29,
-      "cargo": {
-        "id": 13,
-        "nome": "Segurança"
-      }
-    },
-    {
-      "id": 9,
-      "nome": "Emília Freire",
-      "idade": 42,
-      "cargo": {
-        "id": 12,
-        "nome": "Faxineira"
-      }
-    },
-    {
-      "id": 10,
-      "nome": "Thiago Rodrigues",
-      "idade": 19,
-      "cargo": {
-        "id": 15,
-        "nome": "Estagiário Back-End NodeJS"
-      }
-    },
-    {
-      "id": 11,
-      "nome": "Luis Gustavo",
-      "idade": 19,
-      "cargo": {
-        "id": 14,
-        "nome": "Estagiário Front-End React"
-      }
-    }
-  ];
+  useEffect(() => {
+    api.get(`/employee/page/${pageNumber}`)
+      .then(({ data }) => {
+        if (employeesList.length < 1) setEmployeesList(data.listaFuncionarios);
+        else {
+          if (!employeesList.includes(...data.listaFuncionarios))
+            setEmployeesList([...employeesList, ...data.listaFuncionarios]);
+        };
+      })
+      .catch(err => console.log(err));
+  }, [ pageNumber ]);
 
-  const fakeCargos = [
-    {
-      "id": 6,
-      "nome": "Desenvolvedor Fullstack"
-    },
-    {
-      "id": 8,
-      "nome": "Chapter Lead"
-    },
-    {
-      "id": 9,
-      "nome": "Desenvolvedor Python"
-    },
-    {
-      "id": 11,
-      "nome": "Desenvolvedor C/C++"
-    },
-    {
-      "id": 12,
-      "nome": "Faxineira"
-    },
-    {
-      "id": 13,
-      "nome": "Segurança"
-    },
-    {
-      "id": 14,
-      "nome": "Estagiário Front-End React"
-    },
-    {
-      "id": 15,
-      "nome": "Estagiário Back-End NodeJS"
-    }
-  ];
-
-  // useEffect(() => {
-  //   api.get(`/employee/page/${pageNumber}`)
-  //     .then(({ data }) => {
-  //       if (!employeesList.length) setEmployeesList(data.listaFuncionarios);
-  //       else {
-  //         data.listaFuncionarios.forEach(func => employeesList.push(func))
-  //       }
-  //     })
-  //     .catch(err => console.log(err));
-  // }, [ pageNumber ]);
-
-  // useEffect(() => {
-  //   api.get('/cargos')
-  //     .then(({ data }) => setCargosList(data.cargos))
-  //     .catch(err => console.log(err));
-  // }, []);
+  useEffect(() => {
+    api.get('/cargos')
+      .then(({ data }) => setCargosList(data.cargos))
+      .catch(err => console.log(err));
+  }, []);
 
   const [ isHidden, setIsHidden ] = useState(true);
   const [ nome, setNome ] = useState('');
@@ -168,19 +50,29 @@ function EmployeesList() {
     setIsHidden(!isHidden);
   }
 
-  function handleQuerySubmit(e) {
+  async function handleQuerySubmit(e) {
     e.preventDefault();
+    const params = {nome, filtroIdade, cargoId}
+    const { data } = await api.get('/employee', {params});
+    setEmployeesList(data.funcionarios);
+  }
 
-    // get '/employee'
+  function increasePageNumber() {
+    setPageNumber(pageNumber + 1);
   }
 
   return (
     <PageContainer>
-      <form onSubmit={handleQuerySubmit}>
+      <form id="employee-list-form" onSubmit={handleQuerySubmit}>
         <div className="actions">
-          <Link to="/add-employee" className="add-btn">
-            <i className="fas fa-plus-circle"></i> Cadastrar Funcionário
-          </Link>
+          <div className="post-actions">
+            <Link to="/add-employee" className="add-btn">
+              <i className="fas fa-plus-circle"></i> Cadastrar Funcionário
+            </Link>
+            <Link to="/add-cargo" className="add-btn">
+            <i className="fas fa-plus-circle"></i> Cadastrar Cargo
+            </Link>
+          </div>
           <button type="button" onClick={showFilters}>
             Filtros
             <i className="fas fa-chevron-down" />
@@ -204,7 +96,7 @@ function EmployeesList() {
                     { key === 'cargo' && (
                       <Input
                         type="select"
-                        objRef={fakeCargos}
+                        objRef={cargosList}
                         name="cargoId"
                         valueSt={cargoId}
                         onChangeSt={e => setCargoId(e.target.value)}
@@ -234,7 +126,10 @@ function EmployeesList() {
           </tbody>
         </table>
       </form>
-      <Table objRef={fakeEmployees} />
+      <Table objRef={employeesList} />
+      <div className="show-more">
+        <span onClick={increasePageNumber}>Exibir mais</span>
+      </div>
     </PageContainer>
   );
 }

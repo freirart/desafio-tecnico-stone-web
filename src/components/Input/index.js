@@ -2,7 +2,10 @@ import React from 'react';
 
 import './styles.css';
 
-function Input({ type, objRef, placeholder, name, valueSt, onChangeSt }) {
+function Input({ type, objRef, placeholder, name, valueSt, onChangeSt, min, max }) {
+
+  const defaultTypes = ['text', 'number', 'range'];
+
   return (
     <div className="input-group">
       <label htmlFor={name}>{ name }:</label>
@@ -21,6 +24,18 @@ function Input({ type, objRef, placeholder, name, valueSt, onChangeSt }) {
           <option key="0" value="">{ placeholder }</option>
           {objRef.map(({ id, nome }) => <option key={id} value={id}>{ nome }</option>)}
         </select>
+      )}
+      { type === 'number' && (
+        <input 
+          id={name} 
+          type={type}
+          name={name}
+          value={valueSt}
+          max={max}
+          min={min}
+          placeholder={placeholder}
+          onChange={onChangeSt}
+        />
       )}
     </div>
   );

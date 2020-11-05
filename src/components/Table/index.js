@@ -4,10 +4,14 @@ import './styles.css';
 
 function Table({ objRef }) {
 
+  if (!objRef.length) return "Carregando dados...";
+
   let keys = Object.keys(objRef[0]);
 
   // hidding 'id' when displaying employees
   if (keys.length > 2) keys.shift();
+
+  // console.log(objRef);
 
   return (
     <table id="main-table">
@@ -25,7 +29,7 @@ function Table({ objRef }) {
               <tr key={id} data-id={id}>
                 <td className="content-cell">{ nome }</td>
                 <td className="content-cell" style={{ textAlign: 'center' }}>{ idade }</td>
-                <td className="content-cell">{ cargo.nome }</td>
+                <td className="content-cell">{ cargo?.nome }</td>
                 <td className="edit-btn">
                   <a href="https"><i className="fas fa-edit"></i> Editar</a>
                 </td>
