@@ -58,6 +58,18 @@
   margin-left: .5rem;
 }
 
+.actions button.limpar-filtro {
+  font-size: .85rem;
+  color: var(--color-error);
+  border: 0;
+  margin-right: .5rem;
+  padding: .5;
+}
+
+.actions button.limpar-filtro i {
+  margin-right: .5rem;
+}
+
 #table-filtros {
   display: flex;
   width: 100%;

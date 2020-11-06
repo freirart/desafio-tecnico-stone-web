@@ -8,7 +8,9 @@ import api from '../../services/api';
 function UpdateEmployee() {
 
   const id = new URLSearchParams(window.location.search).get('id');
-  const [ objRef, setObjRef ] = useState({});
+  const [ objRef, setObjRef ] = useState({
+    id: '', nome: '', cargo: { id: '', nome: '' }
+  });
 
   useEffect(() => {
     api.get(`/employee/${id}`)
@@ -18,7 +20,7 @@ function UpdateEmployee() {
 
   return (
     <PageContainer>
-      <Form objRef={objRef} objName="funcionário" type="update" />
+      {objRef.nome && (<Form objRef={objRef} objName="funcionário" type="update" />)}
     </PageContainer>
   );
 }

@@ -16,17 +16,7 @@ function EmployeesList() {
   const keys = ['cargo', 'nome', 'idade'];
   const [ pageNumber, setPageNumber ] = useState(0);
 
-  useEffect(() => {
-    api.get(`/employee/page/${pageNumber}`)
-      .then(({ data }) => {
-        if (employeesList.length < 1) setEmployeesList(data.listaFuncionarios);
-        else {
-          if (!employeesList.includes(...data.listaFuncionarios))
-            setEmployeesList([...employeesList, ...data.listaFuncionarios]);
-        };
-      })
-      .catch(err => console.log(err));
-  }, [ pageNumber ]);
+  useEffect(getEmployees, [ pageNumber ]);
 
   useEffect(() => {
     api.get('/cargos')
@@ -35,6 +25,7 @@ function EmployeesList() {
   }, []);
 
   const [ isHidden, setIsHidden ] = useState(true);
+  const [ isFiltered, setIsFiltered ] = useState(false);
   const [ nome, setNome ] = useState('');
   const [ filtroIdade, setFiltroIdade ] = useState('');
   const [ cargoId, setCargoId ] = useState('');
@@ -46,15 +37,34 @@ function EmployeesList() {
     {id: 4, nome: 'Funcionários acima de 40 anos'},
   ];
 
+  function getEmployees() {
+    api.get(`/employee/page/${pageNumber}`)
+      .then(({ data }) => {
+        if (employeesList.length < 1) setEmployeesList(data.listaFuncionarios);
+        else {
+          if (!employeesList.includes(...data.listaFuncionarios))
+            setEmployeesList([...employeesList, ...data.listaFuncionarios]);
+        };
+      })
+      .catch(err => console.log(err));
+  }
+
   function showFilters() {
     setIsHidden(!isHidden);
   }
 
   async function handleQuerySubmit(e) {
     e.preventDefault();
+    setIsFiltered(true);
     const params = {nome, filtroIdade, cargoId}
     const { data } = await api.get('/employee', {params});
     setEmployeesList(data.funcionarios);
+  }
+
+  async function clearFilters() {
+    setIsFiltered(false);
+    setEmployeesList([]);
+    getEmployees();
   }
 
   function increasePageNumber() {
@@ -73,10 +83,19 @@ function EmployeesList() {
             <i className="fas fa-plus-circle"></i> Cadastrar Cargo
             </Link>
           </div>
-          <button type="button" onClick={showFilters}>
-            Filtros
-            <i className="fas fa-chevron-down" />
-          </button>
+          <div className="filter-actions">
+            <button 
+              type="button" 
+              className={`limpar-filtro ${+ isFiltered ? '' : ' hidden'}`}
+              onClick={clearFilters}>
+              <i className="fas fa-times" />
+              Limpar Filtros
+            </button>
+            <button type="button" onClick={showFilters}>
+              Filtros
+              <i className="fas fa-chevron-down" />
+            </button>
+          </div>
         </div>
         <table id="table-filtros" className={ isHidden ? 'hidden' : '' }>
           <tbody className={ isHidden ? 'hidden' : '' }>

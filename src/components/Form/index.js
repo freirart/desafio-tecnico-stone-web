@@ -26,12 +26,12 @@ function Form({ objRef, objName, type }) {
         .catch(err => console.log(err));
     }
   }, []);
-  
-  const [ nome, setNome ] = useState(objRef.nome);
-  const [ idade, setIdade ] = useState(objRef?.idade);
-  const [ cargoId, setCargoId ] = useState(objRef?.cargoId);
 
-  if (!nome) return `Getting ${objName}...`;
+  console.log(objRef);
+
+  const [ nome, setNome ] = useState(objRef?.nome);
+  const [ idade, setIdade ] = useState(objRef?.idade);
+  const [ cargoId, setCargoId ] = useState(objRef?.cargo?.id);
 
   function handleAddEmployee(e) {
     e.preventDefault();
