@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 
 import './styles.css';
 
-function Table({ objRef }) {
+function Table({ objRef, errors }) {
+
+  if (errors.length) {
+    return (<p style={{ margin: 3 + 'rem' }}>Não foram encontrados dados.</p>);
+  }
 
   if (!objRef.length) return "Carregando dados...";
 

@@ -16,6 +16,7 @@ function EmployeesList() {
   const keys = ['cargo', 'nome', 'idade'];
   const [ pageNumber, setPageNumber ] = useState(0);
   const [ shouldItGet, setShouldItGet ] = useState(true);
+  const [ errors, setErrors ] = useState([]);
 
   useEffect(getEmployees, [ pageNumber, employeesList, shouldItGet ]);
 
@@ -47,7 +48,7 @@ function EmployeesList() {
         else setEmployeesList([...employeesList, ...data.listaFuncionarios]);
       })
       .catch(err => console.log(err));
-
+    
     setShouldItGet(false);
   }
 
@@ -56,18 +57,22 @@ function EmployeesList() {
   }
 
   async function handleQuerySubmit(e) {
+    setPageNumber(0);
+    if (!nome && !filtroIdade && !cargoId) return getEmployees();
     e.preventDefault();
     setIsFiltered(true);
-    setPageNumber(0);
     const params = {nome, filtroIdade, cargoId}
-    const { data } = await api.get('/employee', {params});
-    setEmployeesList(data.funcionarios);
+    const response = await api.get('/employee', {params});
+    if (response.status !== 200) return setErrors(['erro']);
+    setEmployeesList(response.data.funcionarios);
+    errors.length = 0;
   }
 
   async function clearFilters() {
     setIsFiltered(false);
     hideFilters();
     employeesList.length = 0;
+    errors.length = 0;
     setShouldItGet(true);
     if (pageNumber !== 0) setPageNumber(0);
     else getEmployees();
@@ -162,7 +167,7 @@ function EmployeesList() {
           </tbody>
         </table>
       </form>
-      <Table objRef={employeesList} />
+      <Table objRef={employeesList} errors={errors} />
       <div 
         className={`show-more ${ isFiltered || employeesList.length % 20 !== 0 ? 'hidden' : ''}`}>
         <span onClick={increasePageNumber}>Exibir mais</span>
