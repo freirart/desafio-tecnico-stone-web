@@ -1,5 +1,5 @@
 <h1 align="center">
-	REST API - Crud de Funcionários<br/>
+	React App - Crud de Funcionários<br/>
 	<img src="https://raw.githubusercontent.com/freirart/desafio-tecnico-stone-server/master/readme-image.png" width="300" />
 </h1>
 
@@ -11,6 +11,7 @@ A aplicação consiste em um CRUD de Funcionários desenvolvidl em NodeJS e Reac
 
 <a href="https://github.com/freirart/desafio-tecnico-stone-server" target="_blank">Clique aqui</a> para visitar o repositório da API REST feita com ExpressJS!
 ## Tecnologias
+* Create React App
 * ReactJS
 * React Router DOM
 * Axios
