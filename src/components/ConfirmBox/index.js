@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import api from '../../services/api';
 
@@ -7,21 +7,17 @@ import './styles.css';
 
 function ConfirmBox({ objRef, objName }) {
 
-  console.log(objRef);
-
   const keys = Object.keys(objRef);
   const history = useHistory();
 
-  console.log(keys);
-
   function handleDelete() {
-    const url = `/employee/${objRef.id}`;
+    const url = `/employee/delete/${objRef.id}`;
     api.delete(url)
       .then(() => {
-        alert(`Success removing ${objName}!`);
-        history.push('/');
+        return Promise.resolve(alert(`Success removing ${objName}!`));
       })
-      .catch(err => console.log(err));
+      .then(() => history.push('/'))
+      .catch(err => alert("Erro ao deletar funcionário!"));
   }
 
   function redirectToMain() {
@@ -48,11 +44,11 @@ function ConfirmBox({ objRef, objName }) {
         </table>
       </article>
       <div id="btn-gp" onClick={redirectToMain}>
-        <button type="button">
-          <i className="fas fa-times" /> Cancelar
-        </button>
         <button type="button" onClick={handleDelete}>
           <i className="fas fa-check" /> Confirmar
+        </button>
+        <button type="button">
+          <i className="fas fa-times" /> Cancelar
         </button>
       </div>
     </section>

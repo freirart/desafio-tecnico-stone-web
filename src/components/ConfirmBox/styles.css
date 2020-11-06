@@ -51,13 +51,13 @@ section table tr td:last-child {
 }
 
 #btn-gp button:first-child {
-  background: var(--color-error);
-  color: var(--color-white);
+  background: var(--color-secondary);
+  color: var(--color-black);
 }
 
 #btn-gp button:last-child {
-  background: var(--color-secondary);
-  color: var(--color-black);
+  background: var(--color-error);
+  color: var(--color-white);
 }
 
 #btn-gp button:first-child:hover, #btn-gp button:last-child:hover {

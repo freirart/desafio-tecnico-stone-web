@@ -62,9 +62,10 @@ function EmployeesList() {
   }
 
   async function clearFilters() {
-    setIsFiltered(false);
     setEmployeesList([]);
-    getEmployees();
+    setIsFiltered(false);
+    setIsHidden(true);
+    setPageNumber(0);
   }
 
   function increasePageNumber() {
