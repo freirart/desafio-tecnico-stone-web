@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './styles.css';
 
@@ -31,10 +32,14 @@ function Table({ objRef }) {
                 <td className="content-cell" style={{ textAlign: 'center' }}>{ idade }</td>
                 <td className="content-cell">{ cargo?.nome }</td>
                 <td className="edit-btn">
-                  <a href="https"><i className="fas fa-edit"></i> Editar</a>
+                  <Link to={`/update-employee/?id=${id}`}>
+                    <i className="fas fa-edit"></i> Editar
+                  </Link>
                 </td>
                 <td className="delete-btn">
-                  <a href="https"><i className="fas fa-trash-alt"></i> Excluir</a>
+                  <Link to={`/delete-employee/?id=${id}`}>
+                    <i className="fas fa-trash-alt"></i> Excluir
+                  </Link>
                 </td>
               </tr>
             );
@@ -46,7 +51,7 @@ function Table({ objRef }) {
               <tr key={id}>
                 <td>{ id }</td>
                 <td>{ nome }</td>
-                <td><a href="https">Excluir</a></td>
+                <td><Link to={`/delete-employee/?id=${id}`}>Excluir</Link></td>
               </tr>
             );
           })

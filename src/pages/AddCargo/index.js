@@ -9,7 +9,7 @@ function AddCargo() {
 
   return (
     <PageContainer>
-      <Form objRef={objRef} objName="cargo" />
+      <Form objRef={objRef} objName="cargo" type="create" />
     </PageContainer>
   );
 }

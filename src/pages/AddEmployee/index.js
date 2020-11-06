@@ -9,7 +9,7 @@ function AddEmployee() {
 
   return (
     <PageContainer>
-      <Form objRef={objRef} objName="funcionário" />
+      <Form objRef={objRef} objName="funcionário" type="create" />
     </PageContainer>
   );
 }

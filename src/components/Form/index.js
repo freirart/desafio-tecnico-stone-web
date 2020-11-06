@@ -7,7 +7,7 @@ import api from '../../services/api';
 
 import './styles.css';
 
-function Form({ objRef, objName }) {
+function Form({ objRef, objName, type }) {
 
   const [ cargosList, setCargosList ] = useState([]);
   const history = useHistory();
@@ -20,26 +20,40 @@ function Form({ objRef, objName }) {
   }
 
   useEffect(() => {
-    if (keys.includes('cargos')) {
+    if (keys.includes('cargo')) {
       api.get('/cargos')
         .then(({ data }) => setCargosList(data.cargos))
         .catch(err => console.log(err));
     }
-  }, [])
+  }, []);
+  
+  const [ nome, setNome ] = useState(objRef.nome);
+  const [ idade, setIdade ] = useState(objRef?.idade);
+  const [ cargoId, setCargoId ] = useState(objRef?.cargoId);
 
-  const [ nome, setNome ] = useState(objRef?.nome || '');
-  const [ idade, setIdade ] = useState(objRef?.idade || 0);
-  const [ cargoId, setCargoId ] = useState(objRef?.cargo?.id || '');
+  if (!nome) return `Getting ${objName}...`;
 
   function handleAddEmployee(e) {
     e.preventDefault();
-    const url = idade > 0 ? '/employee' : '/cargos'
-    api.post(url, {nome, idade, cargoId})
-      .then(() => {
-        alert(`Success adding ${objName}!`);
-        history.push('/');
-      })
-      .catch(err => alert('Erro ao cadastrar!'));
+    
+    let url = idade > 0 ? '/employee' : '/cargos'
+    url += type === 'update' ? '/edit' : '' ;
+
+    if (type === 'create') {
+      api.post(url, {nome, idade, cargoId})
+        .then(() => {
+          alert(`Success adding ${objName}!`);
+          history.push('/');
+        })
+        .catch(() => alert('Erro ao cadastrar!'));
+    } else {
+      api.put(url, {id: objRef.id, nome, idade, cargoId})
+        .then(() => {
+          alert(`${objName}'s information updated!`);
+          history.push('/');
+        })
+        .catch(() => alert('Erro ao atualizar informações!'));
+    }
   }
 
   return (
@@ -48,7 +62,8 @@ function Form({ objRef, objName }) {
         return (
           <div id="input-group" key={key}>
             {key === 'nome' && (
-              <Input 
+              <Input
+                label={`${key}: `}
                 type="text"
                 name="nome"
                 valueSt={nome}
@@ -57,7 +72,8 @@ function Form({ objRef, objName }) {
               />
             )}
             {key === 'idade' && (
-              <Input 
+              <Input
+                label={`${key}: `}
                 type="number"
                 name="idade"
                 valueSt={idade}
@@ -68,7 +84,8 @@ function Form({ objRef, objName }) {
               />
             )}
             {key === 'cargo' && (
-              <Input 
+              <Input
+                label={`${key}: `}
                 type="select"
                 name="cargo"
                 objRef={cargosList}
@@ -81,7 +98,7 @@ function Form({ objRef, objName }) {
         );
       })}
       <button type="submit">
-        <i className="fas fa-plus-circle"></i> Cadastrar {objName}
+        <i className="fas fa-plus-circle"></i> {`${type} ${objName}`}
       </button>
     </form>
   );

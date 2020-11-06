@@ -2,13 +2,15 @@ import React from 'react';
 
 import './styles.css';
 
-function Input({ type, objRef, placeholder, name, valueSt, onChangeSt, min, max }) {
+function Input({ 
+  type, objRef, placeholder, name, valueSt, 
+  onChangeSt, min, max, label }) {
 
   const defaultTypes = ['text', 'number', 'range'];
 
   return (
     <div className="input-group">
-      <label htmlFor={name}>{ name }:</label>
+      <label htmlFor={name}>{ label }</label>
       { type === 'text' && (
         <input 
           id={name} 

@@ -86,6 +86,7 @@ function EmployeesList() {
                   <td key={key}>
                    { key === 'nome' && (
                       <Input
+                        label={`Por ${key}:`}
                         type="text"
                         placeholder="Filtrar pelo nome"
                         name="nome"
@@ -95,6 +96,7 @@ function EmployeesList() {
                     )}
                     { key === 'cargo' && (
                       <Input
+                        label={`Por ${key}:`}
                         type="select"
                         objRef={cargosList}
                         name="cargoId"
@@ -105,6 +107,7 @@ function EmployeesList() {
                     )}
                     { key === 'idade' && (
                       <Input
+                        label={`Por ${key}:`}
                         type="select"
                         objRef={filtroIdadeObj}
                         name="filtroIdade"

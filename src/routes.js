@@ -12,7 +12,7 @@ function Routes() {
     <BrowserRouter>
       <Route path="/" exact component={EmployeesList} />
       <Route path="/add-employee" component={AddEmployee} />
-      <Route path="/edit-employee" component={UpdateEmployee} />
+      <Route path="/update-employee" component={UpdateEmployee} />
       <Route path="/delete-employee" component={DeleteEmployee} />
       <Route path="/add-cargo" component={AddCargo} />
     </BrowserRouter>
