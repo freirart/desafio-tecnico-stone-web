@@ -27,8 +27,6 @@ function Form({ objRef, objName, type }) {
     }
   }, []);
 
-  console.log(objRef);
-
   const [ nome, setNome ] = useState(objRef?.nome);
   const [ idade, setIdade ] = useState(objRef?.idade);
   const [ cargoId, setCargoId ] = useState(objRef?.cargo?.id);

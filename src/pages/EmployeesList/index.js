@@ -15,8 +15,9 @@ function EmployeesList() {
   const [ cargosList, setCargosList ] = useState([]);
   const keys = ['cargo', 'nome', 'idade'];
   const [ pageNumber, setPageNumber ] = useState(0);
+  const [ shouldItGet, setShouldItGet ] = useState(true);
 
-  useEffect(getEmployees, [ pageNumber ]);
+  useEffect(getEmployees, [ pageNumber, employeesList, shouldItGet ]);
 
   useEffect(() => {
     api.get('/cargos')
@@ -38,15 +39,16 @@ function EmployeesList() {
   ];
 
   function getEmployees() {
+    if (!shouldItGet) return;
+
     api.get(`/employee/page/${pageNumber}`)
       .then(({ data }) => {
         if (employeesList.length < 1) setEmployeesList(data.listaFuncionarios);
-        else {
-          if (!employeesList.includes(...data.listaFuncionarios))
-            setEmployeesList([...employeesList, ...data.listaFuncionarios]);
-        };
+        else setEmployeesList([...employeesList, ...data.listaFuncionarios]);
       })
       .catch(err => console.log(err));
+
+    setShouldItGet(false);
   }
 
   function showFilters() {
@@ -56,19 +58,30 @@ function EmployeesList() {
   async function handleQuerySubmit(e) {
     e.preventDefault();
     setIsFiltered(true);
+    setPageNumber(0);
     const params = {nome, filtroIdade, cargoId}
     const { data } = await api.get('/employee', {params});
     setEmployeesList(data.funcionarios);
   }
 
   async function clearFilters() {
-    setEmployeesList([]);
     setIsFiltered(false);
+    hideFilters();
+    employeesList.length = 0;
+    setShouldItGet(true);
+    if (pageNumber !== 0) setPageNumber(0);
+    else getEmployees();
+  }
+
+  function hideFilters() {
     setIsHidden(true);
-    setPageNumber(0);
+    setNome('');
+    setFiltroIdade('');
+    setCargoId('');
   }
 
   function increasePageNumber() {
+    setShouldItGet(true);
     setPageNumber(pageNumber + 1);
   }
 
@@ -150,7 +163,8 @@ function EmployeesList() {
         </table>
       </form>
       <Table objRef={employeesList} />
-      <div className="show-more">
+      <div 
+        className={`show-more ${ isFiltered || employeesList.length % 20 !== 0 ? 'hidden' : ''}`}>
         <span onClick={increasePageNumber}>Exibir mais</span>
       </div>
     </PageContainer>
